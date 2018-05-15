@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Servlets_Student.iml" filepath="$PROJECT_DIR$/.idea/modules/Servlets_Student.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Servlets_Student_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Servlets_Student_main.iml" group="Servlets_Student" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Servlets_Student_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Servlets_Student_test.iml" group="Servlets_Student" />
+    </modules>
+  </component>
+</project>
