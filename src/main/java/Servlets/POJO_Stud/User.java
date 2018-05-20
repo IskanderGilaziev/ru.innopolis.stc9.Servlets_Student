@@ -3,13 +3,19 @@ package Servlets.POJO_Stud;
 public class User {
     private  int id;
     private  String login;
-    private  String passwordHash;
+    private  String password;
     private  int role;
 
     public User(int id, String login, String passwordHash, int role) {
         this.id = id;
         this.login = login;
-        this.passwordHash = passwordHash;
+        this.password = passwordHash;
+        this.role = role;
+    }
+
+    public User(String login, String password, int role) {
+        this.login = login;
+        this.password = password;
         this.role = role;
     }
 
@@ -29,12 +35,12 @@ public class User {
         this.login = login;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
     public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+        this.password = passwordHash;
     }
 
     public int getRole() {
@@ -43,8 +49,5 @@ public class User {
 
     public void setRole(int role) {
         this.role = role;
-    }
-    public enum ROLE{
-        USER,ADMIN,Unknow
     }
 }

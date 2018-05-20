@@ -3,21 +3,30 @@ package Servlets.Service;
 
 
 import Servlets.DAO_Stud.StudentDAOImpl;
-import Servlets.DAO_Stud.UserDAO;
 import Servlets.POJO_Stud.Student;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentService {
-    UserDAO<Student> userDAO = new StudentDAOImpl();
+    private  static   StudentDAOImpl studentDAO = new StudentDAOImpl();
 
     public List<Student> getStudentsByID(int id){
         try {
-            return (List<Student>) userDAO.getByID(id);
+            return (List<Student>) studentDAO.getByID(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return  null;
+    }
+    public ArrayList getNameStudent(){
+        ArrayList<Student> studentName = null;
+        try {
+            studentName = studentDAO.getNameStudent();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return studentName;
     }
 }

@@ -1,10 +1,8 @@
 package Servlets.Controller;
 
-
-
-
-import Servlets.DAO_Stud.UserDaoImpl;
-import Servlets.Service.UserService;
+import Servlets.DAO_Stud.StudentDAOImpl;
+import Servlets.POJO_Stud.Student;
+import Servlets.Service.StudentService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,14 +12,20 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class LoginController extends HttpServlet {
-   private UserService userService = new UserService();
+public class StudentDashboard extends HttpServlet {
+    private StudentDAOImpl studentDAO = new StudentDAOImpl();
+    private StudentService studentService = new StudentService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        userService.doGetAuth(req, resp);
+        ArrayList listStudent= null;
+        listStudent = studentService.getNameStudent();
+        req.setAttribute("listStudent", listStudent);
+
+        req.getRequestDispatcher("/student_dashboard.jsp").forward(req,resp);
+
 
     }
 
@@ -29,6 +33,6 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
-        userService.doPostAuth(req, resp);
+       super.doPost(req,resp);
     }
 }

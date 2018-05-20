@@ -7,7 +7,11 @@ public class Professor {
     private  String homeWork;
 
 
-
+    public Professor(int idProfessor, String name, String lastName) {
+        this.idProfessor = idProfessor;
+        this.name = name;
+        this.lastName = lastName;
+    }
 
     public Professor(int idProfessor, String name, String lastName, String homeWork) {
         this.idProfessor = idProfessor;

@@ -12,8 +12,8 @@
   </head>
   <body>
   <p>
-    Hello my friend <br>
-    <a href="/mobile/login">Enter</a>
+    Вас приветствует деканат университета! <br>
+    <a href="/mobile/login">Регистрация</a>
   </p>
   <br>
   </body>

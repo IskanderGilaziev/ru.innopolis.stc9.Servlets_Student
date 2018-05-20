@@ -2,27 +2,34 @@ package Servlets.POJO_Stud;
 
 public class Dekanat {
     private int id_Dekanat;
-    private int pointStudentTest;
-    private  int PointStudentExam;
-    private  int courseStudent;
-    private  double grantStudent;
-    private  boolean deducation = false;
-    private  String schedule;
+    private int id_Professor;
+    private int id_Student;
+    private int PointExam;
+    private int courseStudent;
+    private double grantStudent;
+   // private boolean deducation = false;
+  //  private String schedule;
 
 
-
-    public Dekanat(int id_Dekanat, int pointStudentTest, int PointStudentExam, int courseStudent, double grantStudent, boolean deducation, String schedule) {
+    public Dekanat(int id_Dekanat, int id_Professor, int id_Student, int pointExam) {
         this.id_Dekanat = id_Dekanat;
-        this.pointStudentTest = pointStudentTest;
-        this.PointStudentExam = PointStudentExam;
-        this.courseStudent = courseStudent;
-        this.grantStudent = grantStudent;
-        this.deducation = deducation;
-        this.schedule = schedule;
-
+        this.id_Professor = id_Professor;
+        this.id_Student = id_Student;
+        PointExam = pointExam;
     }
 
+    public Dekanat(int id_Dekanat, int id_Professor, int id_Student, int pointExam, int courseStudent, double grantStudent) {
+        this.id_Dekanat = id_Dekanat;
+        this.id_Professor = id_Professor;
+        this.id_Student = id_Student;
+        PointExam = pointExam;
+        this.courseStudent = courseStudent;
+        this.grantStudent = grantStudent;
+    }
 
+    public Dekanat() {
+
+    }
 
     public int getId_Dekanat() {
         return id_Dekanat;
@@ -32,20 +39,28 @@ public class Dekanat {
         this.id_Dekanat = id_Dekanat;
     }
 
-    public int getPointStudentTest() {
-        return pointStudentTest;
+    public int getId_Professor() {
+        return id_Professor;
     }
 
-    public void setPointStudentTest(int pointStudentTest) {
-        this.pointStudentTest = pointStudentTest;
+    public void setId_Professor(int id_Professor) {
+        this.id_Professor = id_Professor;
     }
 
-    public int getPointStudentExam() {
-        return PointStudentExam;
+    public int getId_Student() {
+        return id_Student;
     }
 
-    public void setGetPointStudentExam(int getPointStudentExam) {
-        this.PointStudentExam = PointStudentExam;
+    public void setId_Student(int id_Student) {
+        this.id_Student = id_Student;
+    }
+
+    public int getPointExam() {
+        return PointExam;
+    }
+
+    public void setPointExam(int pointExam) {
+        PointExam = pointExam;
     }
 
     public int getCourseStudent() {
@@ -63,21 +78,4 @@ public class Dekanat {
     public void setGrantStudent(double grantStudent) {
         this.grantStudent = grantStudent;
     }
-
-    public boolean isDeducation() {
-        return deducation;
-    }
-
-    public void setDeducation(boolean deducation) {
-        this.deducation = deducation;
-    }
-
-    public String getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(String schedule) {
-        this.schedule = schedule;
-    }
-
 }

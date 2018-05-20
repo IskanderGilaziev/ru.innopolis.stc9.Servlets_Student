@@ -29,33 +29,25 @@
 
 
     <servlet>
-        <servlet-name>AdminDashboard</servlet-name>
-        <servlet-class>Servlets.Controller.AdminDashboard</servlet-class>
+        <servlet-name>StudentDashboard</servlet-name>
+        <servlet-class>Servlets.Controller.StudentDashboard</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>AdminDashboard</servlet-name>
-        <url-pattern>/admin/dashboard</url-pattern>
+        <servlet-name>StudentDashboard</servlet-name>
+        <url-pattern>/student/dashboard</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>DashboardController</servlet-name>
-        <servlet-class>Servlets.Controller.DashboardController</servlet-class>
+        <servlet-name>ProfessorDashboard</servlet-name>
+        <servlet-class>Servlets.Controller.ProfessorDashboard</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>DashboardController</servlet-name>
-        <url-pattern>/user/dashboard</url-pattern>
+        <servlet-name>ProfessorDashboard</servlet-name>
+        <url-pattern>/professor/dashboard</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/webResource/*</url-pattern>
-    </servlet-mapping>
-    
-    
-    
-    
     
     <filter>
         <filter-name>auth-filter</filter-name>

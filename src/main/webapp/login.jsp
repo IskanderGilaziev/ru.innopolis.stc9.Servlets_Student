@@ -17,8 +17,8 @@
     <%=("noAuth".equals(request.getParameter("errorMsg"))) ? "необходимо идентифицироваться":""%>
     <form action="${pageContext.request.contextPath}/login" method="post">
 
-        <input type="text" value="user" name="userName"><br>
-        <input type="text" value="password" name="userPassword"><br>
+        <input type="text" placeholder="user" name="userName"><br>
+        <input type="text" placeholder="password" name="userPassword"><br>
         <input type="submit" value="OK" ><br>
     </form>
 

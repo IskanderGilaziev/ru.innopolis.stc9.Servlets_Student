@@ -37,12 +37,16 @@ public class UserDaoImpl implements  UserDAO<User> {
         User result = null;
         Connection connection = new ConnectionManagerJDBCImpl().getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT *  FROM  users WHERE  login =?");
+            PreparedStatement statement = connection.prepareStatement("SELECT *  FROM  user_login WHERE  login =?");
+
+            statement.setString(1,login);// возможно удалить
             ResultSet resultSet = statement.executeQuery();
 
             if(resultSet.next()){
-                result = new User(resultSet.getInt("id"),resultSet.getString("login"),
-                        resultSet.getString("passwordHash"),resultSet.getInt("role"));
+                result = new User(
+                        resultSet.getString("login"),
+                        resultSet.getString("password"),
+                        resultSet.getInt("role"));
             }
             connection.close();
         } catch (SQLException e) {
