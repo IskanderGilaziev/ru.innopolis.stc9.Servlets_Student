@@ -35,37 +35,31 @@ public class UserService {
         String password = req.getParameter("userPassword");
 
         UserService userService = new UserService();
-        //TODO: вылезает NPE, не могу найти ошибку.Нет подключения к БД.
-//         if(userService.checkAuthorisation(login,password)){
-         String login1="student";
-              if((login1.equals(login)) && (login1.equals(password))){
-//        Integer role = userService.getRole(login);//получаем роль при прохождении регистрации
+         if(userService.checkAuthorisation(login,password)){
+
         req.getSession().setAttribute("login", login);
+        int role = userService.getRole(login);
+
+        req.getSession().setAttribute("role",role);
         try {
-            resp.sendRedirect(req.getContextPath() + "/student");
-                  } catch (IOException e) {
-                      e.printStackTrace();
-                  }
-      //  req.getSession().setAttribute("role",role);
-//        try {
-//            switch (role) {
-//                case 1:
-//                    resp.sendRedirect(req.getContextPath() + "/professor");
-//                    logger.info("Professor has entered ");
-//                    return;
-//                case 2:
-//                    resp.sendRedirect(req.getContextPath() + "/student");
-//                    logger.info("Student has entered ");
-//                    return;
-//                case 3:
-//                    resp.sendRedirect(req.getContextPath() + "/dekanat");
-//                    logger.info("Dekanat has entered ");
-//                    return;
-//            }
-//        } catch (IOException e) {
-//            logger.error("Error: "+ e.getMessage());
-//            e.printStackTrace();
-//        }
+            switch (role) {
+                case 1:
+                    resp.sendRedirect(req.getContextPath() + "/student");
+                    logger.info("Professor has entered ");
+                    return;
+                case 2:
+                    resp.sendRedirect(req.getContextPath() + "/professor");
+                    logger.info("Student has entered ");
+                    return;
+                case 3:
+                    resp.sendRedirect(req.getContextPath() + "/dekanat");
+                    logger.info("Dekanat has entered ");
+                    return;
+            }
+        } catch (IOException e) {
+            logger.error("Error: "+ e.getMessage());
+            e.printStackTrace();
+        }
 
          }  else{
             try {
