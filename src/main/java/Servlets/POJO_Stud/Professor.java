@@ -6,6 +6,10 @@ public class Professor {
     private  String lastName;
     private  String homeWork;
 
+    public Professor(String name, String lastName) {
+        this.name = name;
+        this.lastName = lastName;
+    }
 
     public Professor(int idProfessor, String name, String lastName) {
         this.idProfessor = idProfessor;

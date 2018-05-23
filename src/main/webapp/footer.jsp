@@ -11,7 +11,7 @@
 </div><!-- .wrapper -->
 
 <footer class="footer">
-    <strong>Footer:</strong>
+    <strong>Создано Искандером</strong>
 </footer><!-- .footer -->
 
 </body>

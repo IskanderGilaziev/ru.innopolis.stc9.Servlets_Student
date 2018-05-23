@@ -2,6 +2,7 @@ package Servlets.DAO_Stud;
 
 
 
+import Servlets.ConnectionManager.ConnectionManager;
 import Servlets.ConnectionManager.ConnectionManagerJDBCImpl;
 import Servlets.POJO_Stud.User;
 
@@ -11,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDaoImpl implements  UserDAO<User> {
+
+    private static ConnectionManager connectionManager =
+            ConnectionManagerJDBCImpl.getInstance();
     @Override
     public User getByID(int id) throws SQLException {
         return null;
@@ -35,9 +39,10 @@ public class UserDaoImpl implements  UserDAO<User> {
     public User getByLogin(String login) {
 
         User result = null;
-        Connection connection = new ConnectionManagerJDBCImpl().getConnection();
+        Connection connection = connectionManager.getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT *  FROM  user_login WHERE  login =?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * " +
+                    " FROM  user_login WHERE  login =?");
 
             statement.setString(1,login);// возможно удалить
             ResultSet resultSet = statement.executeQuery();

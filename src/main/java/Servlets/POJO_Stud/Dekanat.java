@@ -11,6 +11,12 @@ public class Dekanat {
   //  private String schedule;
 
 
+    public Dekanat(int id_Professor, int id_Student, int pointExam) {
+        this.id_Professor = id_Professor;
+        this.id_Student = id_Student;
+        PointExam = pointExam;
+    }
+
     public Dekanat(int id_Dekanat, int id_Professor, int id_Student, int pointExam) {
         this.id_Dekanat = id_Dekanat;
         this.id_Professor = id_Professor;

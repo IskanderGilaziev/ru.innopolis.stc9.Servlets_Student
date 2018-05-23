@@ -6,6 +6,8 @@ package Servlets.DAO_Stud;
 import Servlets.ConnectionManager.ConnectionManager;
 import Servlets.ConnectionManager.ConnectionManagerJDBCImpl;
 import Servlets.POJO_Stud.Dekanat;
+import Servlets.POJO_Stud.User;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,42 +17,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DekanatDAOImpl implements  UserDAO<Dekanat> {
-
+    private static Logger logger = Logger.getLogger(DekanatDAOImpl.class);
     private  static ConnectionManager connectionManager =
             ConnectionManagerJDBCImpl.getInstance();
 
     @Override
-    public Dekanat getByID(int id) throws SQLException {
+    public Dekanat getByID(int id)  {
         Connection connection = connectionManager.getConnection();
-        PreparedStatement statement = null;
-
-        statement = connection.prepareStatement(
-                "SELECT  * FROM dekanat  WHERE  id_dekanat= ?");
-        statement.setInt(1,id);
-
-        ResultSet resultSet = statement.executeQuery();
         Dekanat dekanat = null;
-        if(resultSet.next()){
-            dekanat = new Dekanat(
-                    resultSet.getInt("id_dekanat"),
-                    resultSet.getInt("id_professor"),
-                    resultSet.getInt("id_student"),
-                    resultSet.getInt("point")
+       try {
+           PreparedStatement statement = connection.prepareStatement(
+                   "SELECT  * FROM dekanat  WHERE  id_dekanat= ?");
+           statement.setInt(1, id);
+
+           ResultSet resultSet = statement.executeQuery();
+
+           if (resultSet.next()) {
+               dekanat = new Dekanat(
+                       resultSet.getInt("id_dekanat"),
+                       resultSet.getInt("id_professor"),
+                       resultSet.getInt("id_student"),
+                       resultSet.getInt("point")
 //                    resultSet.getInt("courseStudent"),
 //                    resultSet.getDouble("grantStudent")
-            );
-        }
-        connection.close();
+               );
+           }
+           connection.close();
+       }catch(SQLException e){
+           logger.error("Error: "+ e.getMessage());
+           e.printStackTrace();
+       }
         return dekanat;
     }
 
     @Override
-    public void update(Dekanat dekanat) throws SQLException {
+    public void update(Dekanat dekanat) {
         Connection connection = connectionManager.getConnection();
-
-        PreparedStatement statement = null;
-
-        statement = connection.prepareStatement(
+        try {
+        PreparedStatement statement = connection.prepareStatement(
                 "UPDATE  dekanat SET  id_professor=?," +
                         "id_student=?, point=?" +
                         " WHERE  id_dekanat=?");//добить с ади студента
@@ -62,25 +66,29 @@ public class DekanatDAOImpl implements  UserDAO<Dekanat> {
 
         int r = statement.executeUpdate();
         System.out.println(r+ " records update");
-
         connection.close();
+
+        }catch(SQLException e){
+            logger.error("Error: "+ e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public boolean deleteByID(int id) throws SQLException {
+    public boolean deleteByID(int id)  {
         Connection connection = connectionManager.getConnection();
-        PreparedStatement statement = null;
-
-//         дописать
-//        if(!)
-        statement = connection.prepareStatement(
+        try{
+        PreparedStatement statement =  connection.prepareStatement(
                 "DELETE FROM  dekanat   WHERE  id_dekanat= ?");
 
         statement.setInt(1,id);
         statement.executeUpdate();
         System.out.println("Deleted");
         connection.close();
-
+        }catch(SQLException e){
+            logger.error("Error: "+ e.getMessage());
+            e.printStackTrace();
+        }
         return  true;
     }
 
@@ -91,15 +99,15 @@ public class DekanatDAOImpl implements  UserDAO<Dekanat> {
 
     @Override
     public Dekanat getByLogin(String login) {
+
         return null;
     }
 
     public List<Dekanat> getCourseStudent(){
         Connection connection = connectionManager.getConnection();
-        PreparedStatement statement = null;
         ArrayList<Dekanat> listCourse = new ArrayList<>();
         try {
-            statement = connection.prepareStatement(
+            PreparedStatement statement = connection.prepareStatement(
                     "SELECT  name, last_name  FROM student ");
 
             ResultSet resultSet = statement.executeQuery();
@@ -114,8 +122,6 @@ public class DekanatDAOImpl implements  UserDAO<Dekanat> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
         return listCourse;
     }
 

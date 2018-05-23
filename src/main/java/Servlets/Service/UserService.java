@@ -4,6 +4,7 @@ package Servlets.Service;
 import Servlets.DAO_Stud.UserDAO;
 import Servlets.DAO_Stud.UserDaoImpl;
 import Servlets.POJO_Stud.User;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,16 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class UserService {
-    private  static UserDAO userDAO = new UserDaoImpl();
+    private  static UserDAO<User> userDAO = new UserDaoImpl();
+    private static Logger logger = Logger.getLogger(UserService.class);
 
     public boolean checkAuthorisation(String login, String password){
-        User user = (User) userDAO.getByLogin(login);
+        User user =  userDAO.getByLogin(login);
+        logger.info("user authorization: "+ user.getLogin());
         return (user != null) && (user.getPassword().equals(password));
     }
 
     public int getRole (String login){
-        User user = (User) userDAO.getByLogin(login);
+        User user =  userDAO.getByLogin(login);
+        logger.info("return user role: "+ user.getLogin());
         return  user.getRole();
+
     }
 
 
@@ -30,32 +35,43 @@ public class UserService {
         String password = req.getParameter("userPassword");
 
         UserService userService = new UserService();
-         if(userService.checkAuthorisation(login,password)){
-        // String login1="professor";
-        //      if((login1.equals(login)) && (login1.equals(password))){
-        Integer role = userService.getRole(login);//получаем роль при прохождении регистрации
+        //TODO: вылезает NPE, не могу найти ошибку.Нет подключения к БД.
+//         if(userService.checkAuthorisation(login,password)){
+         String login1="student";
+              if((login1.equals(login)) && (login1.equals(password))){
+//        Integer role = userService.getRole(login);//получаем роль при прохождении регистрации
         req.getSession().setAttribute("login", login);
-        req.getSession().setAttribute("role",role);
         try {
-            switch (role) {
-                case 1:
-                    resp.sendRedirect(req.getContextPath() + "/professor/dashboard");
-                    return;
-                case 2:
-                    resp.sendRedirect(req.getContextPath() + "/student/dashboard");
-                    return;
-                case 3:
-                    resp.sendRedirect(req.getContextPath() + "/dekanat/dashboard");
-                    return;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            resp.sendRedirect(req.getContextPath() + "/student");
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+      //  req.getSession().setAttribute("role",role);
+//        try {
+//            switch (role) {
+//                case 1:
+//                    resp.sendRedirect(req.getContextPath() + "/professor");
+//                    logger.info("Professor has entered ");
+//                    return;
+//                case 2:
+//                    resp.sendRedirect(req.getContextPath() + "/student");
+//                    logger.info("Student has entered ");
+//                    return;
+//                case 3:
+//                    resp.sendRedirect(req.getContextPath() + "/dekanat");
+//                    logger.info("Dekanat has entered ");
+//                    return;
+//            }
+//        } catch (IOException e) {
+//            logger.error("Error: "+ e.getMessage());
+//            e.printStackTrace();
+//        }
 
          }  else{
             try {
                 resp.sendRedirect(req.getContextPath() + "/login?errorMsg=authError");
             } catch (IOException e) {
+                logger.error("Error: "+ e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -67,14 +83,17 @@ public class UserService {
                 String action = req.getParameter("action");
         if("logout".equals(action)){
             req.getSession().invalidate();//выходим юзером после регистрации
+            logger.info(req.getSession().getAttribute("login") + " завершение");
         }
         req.setAttribute("message","hello, my dear friend! ");
         try {
             req.getRequestDispatcher("/login.jsp").forward(req,resp);
 
         } catch (ServletException e) {
+            logger.error("Error: "+ e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+            logger.error("Error: "+ e.getMessage());
             e.printStackTrace();
         }
     }

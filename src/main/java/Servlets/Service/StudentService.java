@@ -7,26 +7,16 @@ import Servlets.POJO_Stud.Student;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class StudentService {
-    private  static   StudentDAOImpl studentDAO = new StudentDAOImpl();
+    private  static StudentDAOImpl studentDAO = new StudentDAOImpl();
 
-    public List<Student> getStudentsByID(int id){
-        try {
-            return (List<Student>) studentDAO.getByID(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return  null;
+    public Student getStudentsByID(int id){
+       return studentDAO.getByID(id);
     }
-    public ArrayList getNameStudent(){
-        ArrayList<Student> studentName = null;
-        try {
-            studentName = studentDAO.getNameStudent();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return studentName;
+
+
+    public ArrayList<Student> getNameStudent(){
+        return studentDAO.getNameStudent();
     }
 }

@@ -20,11 +20,11 @@
 <div class="wrapper">
 
     <header class="header">
-        <div class="main_header"> The best dekanat</div>
+        <div class="main_header">Самый лучший университет года!</div>
         <div class="logout">
             <%=(String) request.getSession().getAttribute("login")
             %>
-            <a href="${pageContext.request.contextPath}/login?action=logout">Output</a>
+            <a href="${pageContext.request.contextPath}/login?action=logout">Выйти</a>
         </div>
     </header><!-- .header-->
 

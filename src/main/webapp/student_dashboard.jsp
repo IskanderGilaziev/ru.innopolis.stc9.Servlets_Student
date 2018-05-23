@@ -17,14 +17,16 @@
 
         <table>
             <tr>
-                <td>Id student</td>
-                <td>name student</td>
-                <td>last name</td>
+                <td>Имя студента</td>
+                <td>Фамилия студента</td>
 
             </tr>
             <c:forEach var="student" items="${listStudent}">
                 <tr>
-                    <td><p> ${}</p></td>
+                    <td><p> ${student.getName()}</p></td>
+                </tr>
+                <tr>
+                    <td><p> ${student.getLast_name()}</p></td>
                 </tr>
             </c:forEach>
         </table>

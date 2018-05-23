@@ -6,16 +6,6 @@
 
 
     <display-name>MyFirstServlet</display-name>
-    <servlet>
-        <servlet-name>hello</servlet-name>
-        <servlet-class>Servlets.Controller.HelloServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>hello</servlet-name>
-        <url-pattern>/hello</url-pattern>
-    </servlet-mapping>
-
 
     <servlet>
         <servlet-name>LoginController</servlet-name>
@@ -35,7 +25,7 @@
 
     <servlet-mapping>
         <servlet-name>StudentDashboard</servlet-name>
-        <url-pattern>/student/dashboard</url-pattern>
+        <url-pattern>/student</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -45,10 +35,14 @@
 
     <servlet-mapping>
         <servlet-name>ProfessorDashboard</servlet-name>
-        <url-pattern>/professor/dashboard</url-pattern>
+        <url-pattern>/professor</url-pattern>
     </servlet-mapping>
 
-    
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/resources/*</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>auth-filter</filter-name>
         <filter-class>Servlets.Controller.filter.UserFilter</filter-class>
