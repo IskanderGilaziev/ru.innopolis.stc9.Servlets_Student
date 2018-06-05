@@ -1,25 +1,19 @@
 package Servlets.Service;
 
-import Servlets.DAO_Stud.ProfessorDAOImpl;
 import Servlets.POJO_Stud.Professor;
-import Servlets.POJO_Stud.Student;
-import org.apache.log4j.Logger;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ProfessorService {
+public interface ProfessorService {
+    Professor getProfessorByID(int id);
 
-    private  static ProfessorDAOImpl professorDAO = new ProfessorDAOImpl();
+    List<Professor> getAllProfessor();
 
-    public Professor getProfessorByID(int id){
-            return  professorDAO.getByID(id);
-    }
+    void updateProfessor(Professor professor);
 
+    boolean deleteProfessorByID(int id);
 
-    public List getAllProfessor(){
-       ArrayList<Professor> professors = (ArrayList<Professor>) professorDAO.getAllProfessor();
-        return professors;
-    }
+    void addProfessor(Professor professor);
+
+    Professor getByLoginProfessor(String login);
 }

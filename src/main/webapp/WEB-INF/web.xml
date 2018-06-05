@@ -20,7 +20,7 @@
 
     <servlet>
         <servlet-name>StudentDashboard</servlet-name>
-        <servlet-class>Servlets.Controller.StudentDashboard</servlet-class>
+        <servlet-class>Servlets.Controller.StudentDashboardController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -30,12 +30,48 @@
 
     <servlet>
         <servlet-name>ProfessorDashboard</servlet-name>
-        <servlet-class>Servlets.Controller.ProfessorDashboard</servlet-class>
+        <servlet-class>Servlets.Controller.ProfessorDashboardController</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>ProfessorDashboard</servlet-name>
         <url-pattern>/professor</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteStudent</servlet-name>
+        <servlet-class>Servlets.Controller.DeleteStudentController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteStudent</servlet-name>
+        <url-pattern>/professor/deleteStudent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddStudent</servlet-name>
+        <servlet-class>Servlets.Controller.AddStudentsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddStudent</servlet-name>
+        <url-pattern>/professor/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddHomeWork</servlet-name>
+        <servlet-class>Servlets.Controller.AddHomeWorkController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddHomeWork</servlet-name>
+        <url-pattern>/professor/addHomeWork</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddLesson</servlet-name>
+        <servlet-class>Servlets.Controller.AddLessonController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddLesson</servlet-name>
+        <url-pattern>/professor/addLesson</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

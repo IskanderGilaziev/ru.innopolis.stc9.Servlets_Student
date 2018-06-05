@@ -149,12 +149,16 @@ public class StudentDAOImpl implements UserDAO<Student> {
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
-            student= new Student(resultSet.getString("name"),
-                                resultSet.getString("last_name"));
+            student = new Student(
+                    resultSet.getInt("id_student"),
+                    resultSet.getString("name"),
+                    resultSet.getString("last_name"),
+                    resultSet.getInt("course"));
             students.add(student);
         }
         connection.close();
         } catch (SQLException e) {
+            logger.error("Error: " + e.getMessage());
             e.printStackTrace();
         }
         return students;

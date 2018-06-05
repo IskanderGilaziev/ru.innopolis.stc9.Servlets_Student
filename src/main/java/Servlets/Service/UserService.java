@@ -39,7 +39,6 @@ public class UserService {
 
         req.getSession().setAttribute("login", login);
         int role = userService.getRole(login);
-
         req.getSession().setAttribute("role",role);
         try {
             switch (role) {

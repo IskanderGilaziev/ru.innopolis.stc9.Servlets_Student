@@ -11,7 +11,7 @@
 </div><!-- .wrapper -->
 
 <footer class="footer">
-    <strong>Создано Искандером</strong>
+    <strong>Создано в группе STC-9.Гилазиев Искандер</strong>
 </footer><!-- .footer -->
 
 </body>

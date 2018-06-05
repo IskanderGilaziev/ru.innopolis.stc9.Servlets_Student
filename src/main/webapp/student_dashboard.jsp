@@ -1,38 +1,43 @@
-<%@ page import="Servlets.DAO_Stud.StudentDAOImpl" %><%--
-  Created by IntelliJ IDEA.
-  User: Искандер
-  Date: 15/05/2018
-  Time: 23:10
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="Servlets.POJO_Stud.HomeWork" %>
+<%@ page import="Servlets.POJO_Stud.Lesson" %>
+<%@ page import="Servlets.POJO_Stud.Professor" %>
+<%@ page import="Servlets.Service.*" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="header.jsp"%>
-<% StudentDAOImpl student = new StudentDAOImpl();%>
+
+<h1 class="title">Рабочая страница студента</h1>
+<% LessonService lessonService = new LessonServiceImpl();
+    ArrayList<Lesson> lessons = (ArrayList<Lesson>) lessonService.getAllLesson();
+    request.setAttribute("lessons", lessons);
+    HomeWorkService homeWorkService = new HomeWorkServiceImpl();
+    List<HomeWork> homeWork = homeWorkService.getAllHomeWork();
+    request.setAttribute("homeWork", homeWork);
+    ProfessorService professorService = new ProfessorServiceImpl();
+    List<Professor> professors = professorService.getAllProfessor();
+    request.setAttribute("prof", professors);
+
+%>
 <div class="container">
     <main class="content">
-        <strong>Рабочее пространство студента</strong>
-        <strong><%= request.getSession().getAttribute("name")%>, hello! </strong>
+        <h1>
+            <ul>
+                <c:forEach var="lessons" items="${lessons}">
+                    <li>
+                        Тема занятия: ${lessons.theme} <br>
+                        Посещение занятия:${lessons.lesson}<br>
+                    </li>
+                </c:forEach>
 
-        <table>
-            <tr>
-                <td>Имя студента</td>
-                <td>Фамилия студента</td>
 
-            </tr>
-            <c:forEach var="student" items="${listStudent}">
-                <tr>
-                    <td><p> ${student.getName()}</p></td>
-                </tr>
-                <tr>
-                    <td><p> ${student.getLast_name()}</p></td>
-                </tr>
-            </c:forEach>
-        </table>
-        
-    </main><!-- .content -->
-</div><!-- .container-->
+            </ul>
+        </h1>
 
-<%@include file="sidebar.jsp"%>
+    </main>
+</div>
+
+
 <%@include file="footer.jsp"%>
