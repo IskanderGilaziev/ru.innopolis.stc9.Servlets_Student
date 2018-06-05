@@ -1,87 +1,64 @@
 package Servlets.POJO_Stud;
 
-import java.util.Date;
-
 public class Lesson {
-    private int idLesson;
-    private  String titleLesson;
-    private boolean attendance;
-    private Date endLesson;
-    private  int idStudent;
-    private  Student student;
+    private int id;
+    private int id_student;
+    private int id_professor;
+    private String theme;
+    private boolean isLesson;
 
-    public Lesson(int idLesson, String titleLesson, boolean attendance, Date endLesson, int idStudent) {
-        this.idLesson = idLesson;
-        this.titleLesson = titleLesson;
-        this.attendance = attendance;
-        this.endLesson = endLesson;
-        this.idStudent = idStudent;
+    public Lesson(int id, int id_student, int id_professor, String theme, boolean isLesson) {
+        this.id = id;
+        this.id_student = id_student;
+        this.id_professor = id_professor;
+        this.theme = theme;
+        this.isLesson = isLesson;
     }
 
-    public int getIdLesson() {
-        return idLesson;
+    public Lesson(int id_student, int id_professor, String theme, boolean isLesson) {
+        this.id_student = id_student;
+        this.id_professor = id_professor;
+        this.theme = theme;
+        this.isLesson = isLesson;
     }
 
-    public void setIdLesson(int idLesson) {
-        this.idLesson = idLesson;
+    public int getId() {
+        return id;
     }
 
-    public String getTitleLesson() {
-        return titleLesson;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setTitleLesson(String titleLesson) {
-        this.titleLesson = titleLesson;
+    public int getId_student() {
+        return id_student;
     }
 
-    public boolean isAttendance() {
-        return attendance;
+    public void setId_student(int id_student) {
+        this.id_student = id_student;
     }
 
-    public void setAttendance(boolean attendance) {
-        this.attendance = attendance;
+    public int getId_professor() {
+        return id_professor;
     }
 
-    public Date getEndLesson() {
-        return endLesson;
+    public void setId_professor(int id_professor) {
+        this.id_professor = id_professor;
     }
 
-    public void setEndLesson(Date endLesson) {
-        this.endLesson = endLesson;
+    public String getTheme() {
+        return theme;
     }
 
-    public int getIdStudent() {
-        return idStudent;
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
-    public void setIdStudent(int idStudent) {
-        this.idStudent = idStudent;
+    public boolean isLesson() {
+        return isLesson;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Lesson(int idLesson, String titleLesson, boolean attendance, Date endLesson, int idStudent, Student student) {
-
-        this.idLesson = idLesson;
-        this.titleLesson = titleLesson;
-        this.attendance = attendance;
-        this.endLesson = endLesson;
-        this.idStudent = idStudent;
-        this.student = student;
-    }
-
-    @Override
-    public String toString() {
-        return "Lesson{" +
-                "idLesson=" + idLesson +
-                ", titleLesson='" + titleLesson + " " +
-                ", attendance=" + attendance +
-                ", idStudent=" + idStudent + ';';
+    public void setLesson(boolean lesson) {
+        isLesson = lesson;
     }
 }

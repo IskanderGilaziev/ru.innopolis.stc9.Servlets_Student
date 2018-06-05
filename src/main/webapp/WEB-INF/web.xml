@@ -6,16 +6,6 @@
 
 
     <display-name>MyFirstServlet</display-name>
-    <servlet>
-        <servlet-name>hello</servlet-name>
-        <servlet-class>Servlets.Controller.HelloServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>hello</servlet-name>
-        <url-pattern>/hello</url-pattern>
-    </servlet-mapping>
-
 
     <servlet>
         <servlet-name>LoginController</servlet-name>
@@ -29,34 +19,66 @@
 
 
     <servlet>
-        <servlet-name>AdminDashboard</servlet-name>
-        <servlet-class>Servlets.Controller.AdminDashboard</servlet-class>
+        <servlet-name>StudentDashboard</servlet-name>
+        <servlet-class>Servlets.Controller.StudentDashboardController</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>AdminDashboard</servlet-name>
-        <url-pattern>/admin/dashboard</url-pattern>
+        <servlet-name>StudentDashboard</servlet-name>
+        <url-pattern>/student</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>DashboardController</servlet-name>
-        <servlet-class>Servlets.Controller.DashboardController</servlet-class>
+        <servlet-name>ProfessorDashboard</servlet-name>
+        <servlet-class>Servlets.Controller.ProfessorDashboardController</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>DashboardController</servlet-name>
-        <url-pattern>/user/dashboard</url-pattern>
+        <servlet-name>ProfessorDashboard</servlet-name>
+        <url-pattern>/professor</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteStudent</servlet-name>
+        <servlet-class>Servlets.Controller.DeleteStudentController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteStudent</servlet-name>
+        <url-pattern>/professor/deleteStudent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddStudent</servlet-name>
+        <servlet-class>Servlets.Controller.AddStudentsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddStudent</servlet-name>
+        <url-pattern>/professor/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddHomeWork</servlet-name>
+        <servlet-class>Servlets.Controller.AddHomeWorkController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddHomeWork</servlet-name>
+        <url-pattern>/professor/addHomeWork</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddLesson</servlet-name>
+        <servlet-class>Servlets.Controller.AddLessonController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddLesson</servlet-name>
+        <url-pattern>/professor/addLesson</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>/webResource/*</url-pattern>
+        <url-pattern>/resources/*</url-pattern>
     </servlet-mapping>
-    
-    
-    
-    
-    
+
     <filter>
         <filter-name>auth-filter</filter-name>
         <filter-class>Servlets.Controller.filter.UserFilter</filter-class>

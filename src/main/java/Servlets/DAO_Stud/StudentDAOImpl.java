@@ -7,103 +7,160 @@ package Servlets.DAO_Stud;
 import Servlets.ConnectionManager.ConnectionManager;
 import Servlets.ConnectionManager.ConnectionManagerJDBCImpl;
 import Servlets.POJO_Stud.Student;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentDAOImpl implements UserDAO<Student> {
-
-    private  static ConnectionManager connectionManager =
+    private static Logger logger = Logger.getLogger(StudentDAOImpl.class);
+    private static ConnectionManager connectionManager =
             ConnectionManagerJDBCImpl.getInstance();
 
     @Override
-    //или можно все  таки List использовать?
-    public Student getByID(int id) throws SQLException {
+    public Student getByID(int id) {
         Connection connection = connectionManager.getConnection();
-        PreparedStatement statement = null;
+        Student student1 = null;
+        try{
+        PreparedStatement statement =  connection.prepareStatement(
+                "SELECT  * FROM student  WHERE  id_student= ?");
+        statement.setInt(1,id);
+        ResultSet resultSet = statement.executeQuery();
 
-            statement = connection.prepareStatement(
-                    "SELECT  * FROM student  WHERE  id_students= ?");
+        if (resultSet.next()) {
+            student1 = new Student(
+                    resultSet.getInt("id_student"),
+                    resultSet.getString("name"),
+                    resultSet.getString("last_name"),
+                    resultSet.getInt("course")
 
-            ResultSet resultSet = statement.executeQuery();
-            Student student1 = null;
-            if(resultSet.next()){
-                student1 = new Student(
-                        resultSet.getInt("idStudent"),
-                        resultSet.getString("name"),
-                        resultSet.getString("lastName"),
-                        resultSet.getString("schedule"),
-                        resultSet.getString("homeWork")
-              //          resultSet.getInt("idProgressStudent")
-                );
-            }
-            connection.close();
-            return  student1;
+            );
+        }
+        connection.close();
+        } catch (SQLException e) {
+            logger.error("Error: "+ e.getMessage());
+            e.printStackTrace();
+        }
+        return student1;
     }
 
     @Override
-    public void update(Student student) throws SQLException {
+    public void update(Student student)  {
         Connection connection = connectionManager.getConnection();
+        try{
+        PreparedStatement statement =  connection.prepareStatement(
+                "UPDATE  student SET name = ?,last_name=? WHERE  id_student=?");
 
-        //как быть с id_student ?
-        PreparedStatement statement = null;
+        statement.setString(1, student.getName());
+        statement.setString(2, student.getLast_name());
+        int r = statement.executeUpdate();
+        System.out.println(r + " records update");
+        connection.close();
 
-            statement = connection.prepareStatement(
-                    "UPDATE  student SET schedule = ?,home_work=? WHERE  id=?");
-
-            //что за нумерация параметраИндекса?
-            statement.setString(1,student.getSchedule());
-            statement.setString(2,student.getHome_work());
-           int r = statement.executeUpdate();
-            System.out.println(r+ " records update");
-
-             connection.close();
+    } catch (SQLException e) {
+        logger.error("Error: "+ e.getMessage());
+        e.printStackTrace();
+        }
     }
 
     @Override
-    public boolean deleteByID(int id) throws SQLException {
+    public boolean deleteByID(int id) {
         Connection connection = connectionManager.getConnection();
-        PreparedStatement statement = null;
+       try{
+        PreparedStatement statement =  connection.prepareStatement(
+                "DELETE FROM  student   WHERE  id_student= ?");
 
-            statement = connection.prepareStatement(
-                    "DELETE FROM  student   WHERE  id= ?");
-
-            statement.setInt(1,id);
-            statement.executeUpdate();
+        statement.setInt(1, id);
+        statement.executeUpdate();
         System.out.println("Deleted");
-            connection.close();
-
-        return  true;
+        connection.close();
+    } catch (SQLException e) {
+        logger.error("Error: "+ e.getMessage());
+        e.printStackTrace();
+    }
+        return true;
     }
 
     @Override
-    public void add(Student student) throws SQLException {
+    public void add(Student student){
         Connection connection = connectionManager.getConnection();
-        PreparedStatement statement = null;
+      try{
+        PreparedStatement statement =  connection.prepareStatement(
+                "INSERT  INTO  " +
+                        "student(id_student,name,last_name,course)" +
+                        "VALUES  (?,?,?,?)");
 
+        statement.setInt(1, student.getId_student());
+        statement.setString(2, student.getName());
+        statement.setString(3, student.getLast_name());
+       statement.setInt(4,student.getCourse());
 
-            statement = connection.prepareStatement(
-                    "INSERT  INTO  " +
-                            "student(id_students,name,last_name,home_work, schedule,id_progress_student)" +
-                            "VALUES  (?,?,?,?,?,?)");
-
-            statement.setInt(1,student.getId_student());
-            statement.setString(2,student.getName());
-            statement.setString(3,student.getLast_name());
-            statement.setString(4,student.getHome_work());
-            statement.setString(5,student.getSchedule());
-
-            //получает это на совести БД?
-           // statement.setInt(6,student.getIdProgressStudent());
-
-            statement.executeUpdate();
-            connection.close();
+        statement.executeUpdate();
+        connection.close();
+      } catch (SQLException e) {
+          logger.error("Error: "+ e.getMessage());
+          e.printStackTrace();
+      }
     }
 
     @Override
     public Student getByLogin(String login) {
         return null;
+    }
+
+
+    public ArrayList<Student> getNameStudent()  {
+        Connection connection = connectionManager.getConnection();
+        ArrayList<Student> listNameStudent = new ArrayList<>();
+        try{
+        PreparedStatement statement =  connection.prepareStatement(
+                "SELECT  name, last_name  FROM student ");
+
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            Student student = new Student();
+            student.setId_student(resultSet.getInt("id"));// возможно не id , a id_student мб в базе данных
+            student.setName(resultSet.getString("name"));
+            student.setLast_name(resultSet.getString("last_name"));
+            listNameStudent.add(student);
+        }
+            connection.close();
+        } catch (SQLException e) {
+            logger.error("Error: "+ e.getMessage());
+            e.printStackTrace();
+        }
+        return listNameStudent;
+    }
+
+
+    public List<Student> getAllStudent(){
+        Connection connection = connectionManager.getConnection();
+        ArrayList<Student> students = new ArrayList<>();
+        Student student = null;
+        try{
+        PreparedStatement statement =  connection.prepareStatement(
+                "SELECT  * FROM student");
+
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            student = new Student(
+                    resultSet.getInt("id_student"),
+                    resultSet.getString("name"),
+                    resultSet.getString("last_name"),
+                    resultSet.getInt("course"));
+            students.add(student);
+        }
+        connection.close();
+        } catch (SQLException e) {
+            logger.error("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return students;
     }
 }

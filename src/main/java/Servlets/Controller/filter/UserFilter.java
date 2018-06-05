@@ -9,7 +9,7 @@ import java.io.IOException;
 public class UserFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+//do it
     }
 
     @Override
@@ -28,6 +28,6 @@ public class UserFilter implements Filter {
 
     @Override
     public void destroy() {
-
+//do it
     }
 }

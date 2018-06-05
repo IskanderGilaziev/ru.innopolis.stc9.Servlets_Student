@@ -6,8 +6,24 @@ public class Student {
     private String last_name;
     private String schedule;
     private String home_work;
+    private int course;
 
 
+    public Student() {
+
+    }
+
+    public Student(String name, String last_name) {
+        this.name = name;
+        this.last_name = last_name;
+    }
+
+    public Student(int id_student, String name, String last_name, int course) {
+        this.id_student = id_student;
+        this.name = name;
+        this.last_name = last_name;
+        this.course = course;
+    }
 
     public Student(int id_student, String name, String last_name, String schedule, String home_work) {
         this.id_student = id_student;
@@ -18,7 +34,13 @@ public class Student {
 
     }
 
+    public int getCourse() {
+        return course;
+    }
 
+    public void setCourse(int course) {
+        this.course = course;
+    }
 
     public int getId_student() {
         return id_student;
@@ -61,16 +83,13 @@ public class Student {
     }
 
 
-
-
     @Override
     public String toString() {
-        return "Student" +
-                "id_student=" + id_student +" "+
-                ", name='" + name+ " " +
-                ", last_name='" + last_name + " " +
-                ", schedule='" + schedule + " " +
-                ", home_work='" + home_work + " " +
-                ';';
+        return "Student{" +
+                "id_student=" + id_student +
+                ", name='" + name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", course=" + course +
+                '}';
     }
 }

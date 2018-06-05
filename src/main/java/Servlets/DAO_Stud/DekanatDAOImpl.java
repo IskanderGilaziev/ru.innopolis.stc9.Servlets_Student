@@ -6,83 +6,89 @@ package Servlets.DAO_Stud;
 import Servlets.ConnectionManager.ConnectionManager;
 import Servlets.ConnectionManager.ConnectionManagerJDBCImpl;
 import Servlets.POJO_Stud.Dekanat;
+import Servlets.POJO_Stud.User;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DekanatDAOImpl implements  UserDAO<Dekanat> {
-
+    private static Logger logger = Logger.getLogger(DekanatDAOImpl.class);
     private  static ConnectionManager connectionManager =
             ConnectionManagerJDBCImpl.getInstance();
 
     @Override
-    public Dekanat getByID(int id) throws SQLException {
+    public Dekanat getByID(int id)  {
         Connection connection = connectionManager.getConnection();
-        PreparedStatement statement = null;
+        Dekanat dekanat = null;
+       try {
+           PreparedStatement statement = connection.prepareStatement(
+                   "SELECT  * FROM dekanat  WHERE  id_dekanat= ?");
+           statement.setInt(1, id);
 
-//        statement = connection.prepareStatement(
-//                "SELECT  * FROM dekanat  WHERE  id_dekanat= ?");
+           ResultSet resultSet = statement.executeQuery();
 
-//        ResultSet resultSet = statement.executeQuery();
-//        Dekanat dekanat = null;
-//        if(resultSet.next()){
-//            dekanat = new Dekanat(
-//                    resultSet.getInt("idDekanat"),
-//                    resultSet.getInt("pointStudentTest"),
-//                    resultSet.getInt("pointStudentExam"),
+           if (resultSet.next()) {
+               dekanat = new Dekanat(
+                       resultSet.getInt("id_dekanat"),
+                       resultSet.getInt("id_professor"),
+                       resultSet.getInt("id_student"),
+                       resultSet.getInt("point")
 //                    resultSet.getInt("courseStudent"),
-//                    resultSet.getDouble("grantStudent"),
-//                    resultSet.getBoolean("deducation"),
-//                    resultSet.getString("schedule"),
-//
-//            );
-//        }
-        connection.close();
-        return null; //dekanat;
+//                    resultSet.getDouble("grantStudent")
+               );
+           }
+           connection.close();
+       }catch(SQLException e){
+           logger.error("Error: "+ e.getMessage());
+           e.printStackTrace();
+       }
+        return dekanat;
     }
 
     @Override
-    public void update(Dekanat dekanat) throws SQLException {
+    public void update(Dekanat dekanat) {
         Connection connection = connectionManager.getConnection();
-
-        PreparedStatement statement = null;
-
-//        statement = connection.prepareStatement(
-//                "UPDATE  dekanat SET points_student_test =?, points_student_exam=?," +
-//                        "course_students=?, grant_student=?, deducation =?, schedule = ?" +
-//                        " WHERE  id=?");//добить с ади студента
+        try {
+        PreparedStatement statement = connection.prepareStatement(
+                "UPDATE  dekanat SET  id_professor=?," +
+                        "id_student=?, point=?" +
+                        " WHERE  id_dekanat=?");//добить с ади студента
 
 
-//        statement.setInt(1,dekanat.getPointStudentTest());
-//        statement.setInt(2,dekanat.getPointStudentExam());
-//        statement.setInt(3,dekanat.getCourseStudent());
-//        statement.setDouble(4,dekanat.getGrantStudent());
-//        statement.setBoolean(5,dekanat.isDeducation());
-//        statement.setString(6,dekanat.getSchedule());
+        statement.setInt(1,dekanat.getId_Professor());
+        statement.setInt(2,dekanat.getId_Student());
+        statement.setInt(3,dekanat.getPointExam());
 
         int r = statement.executeUpdate();
         System.out.println(r+ " records update");
-
         connection.close();
+
+        }catch(SQLException e){
+            logger.error("Error: "+ e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public boolean deleteByID(int id) throws SQLException {
+    public boolean deleteByID(int id)  {
         Connection connection = connectionManager.getConnection();
-        PreparedStatement statement = null;
+        try{
+        PreparedStatement statement =  connection.prepareStatement(
+                "DELETE FROM  dekanat   WHERE  id_dekanat= ?");
 
-        // дописать
-       // if(!)
-//        statement = connection.prepareStatement(
-//                "DELETE FROM  dekanat   WHERE  id= ?");
-//
-//        statement.setInt(1,id);
-//        statement.executeUpdate();
-//        System.out.println("Deleted");
+        statement.setInt(1,id);
+        statement.executeUpdate();
+        System.out.println("Deleted");
         connection.close();
-
+        }catch(SQLException e){
+            logger.error("Error: "+ e.getMessage());
+            e.printStackTrace();
+        }
         return  true;
     }
 
@@ -93,6 +99,30 @@ public class DekanatDAOImpl implements  UserDAO<Dekanat> {
 
     @Override
     public Dekanat getByLogin(String login) {
+
         return null;
     }
+
+    public List<Dekanat> getCourseStudent(){
+        Connection connection = connectionManager.getConnection();
+        ArrayList<Dekanat> listCourse = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT  name, last_name  FROM student ");
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                Dekanat dekanat = new Dekanat();
+                dekanat.setId_Student(resultSet.getInt("id_student"));
+                dekanat.setCourseStudent(resultSet.getInt("course"));// возможно не id , a id_student мб в базе данных
+
+                listCourse.add(dekanat);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listCourse;
+    }
+
 }

@@ -1,23 +1,22 @@
 package Servlets.Service;
 
-
-
-import Servlets.DAO_Stud.StudentDAOImpl;
-import Servlets.DAO_Stud.UserDAO;
 import Servlets.POJO_Stud.Student;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class StudentService {
-    UserDAO<Student> userDAO = new StudentDAOImpl();
+public interface StudentService {
+    Student getStudentsByID(int id);
 
-    public List<Student> getStudentsByID(int id){
-        try {
-            return (List<Student>) userDAO.getByID(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return  null;
-    }
+    ArrayList<Student> getNameStudent();
+
+    void updateStudent(Student student);
+
+    boolean deleteStudentByID(int id);
+
+    void addStudent(Student professor);
+
+    Student getByLoginStudent(String login);
+
+    List<Student> getAllStudent();
 }
